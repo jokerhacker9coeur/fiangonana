@@ -156,25 +156,13 @@ if ($conn->connect_error) {
 
 // Requête pour récupérer les données avec jointure (si nécessaire)
 $sql = "
-    SELECT DISTINCT
-    k.nom AS anarana, 
-    k.prenom AS fanampiny_anarana, 
-    k.numero AS laharana,
-    f.nom_faritra AS faritra,
-    fi.nom_fikambanana AS fikambanana,
-    v.nom_vaomiera AS vaomiera,
-    a.nom_adidy AS adidy,
-    a.date_adidy AS daty_adidy
-FROM 
-    kristianina k
-LEFT JOIN 
-    faritra f ON k.nom_faritra = f.nom_faritra
-LEFT JOIN 
-    fikambanana fi ON k.nom_fikambanana = fi.nom_fikambanana
-LEFT JOIN 
-    vaomiera v ON k.nom_vaomiera = v.nom_vaomiera
-LEFT JOIN 
-    adidy a ON k.nom_adidy = a.nom_adidy
+   SELECT  kristianina.numero, kristianina.nom, kristianina.prenom, faritra.nom_faritra, fikambanana.nom_fikambanana, vaomiera.nom_vaomiera, adidy.nom_adidy, adidy.date_adidy 
+   FROM kristianina
+   INNER JOIN faritra ON kristianina.id_kristianina = faritra.id_kristianina
+   INNER JOIN fikambanana ON kristianina.id_kristianina = fikambanana.id_kristianina
+   INNER JOIN vaomiera ON kristianina.id_kristianina = vaomiera.id_kristianina
+   INNER JOIN adidy ON kristianina.id_kristianina = adidy.id_kristianina
+   ORDER BY kristianina.nom
 ";
 
 
@@ -205,16 +193,16 @@ if ($result->num_rows > 0) {
                             <tbody id="post_list">';
 
     // Afficher chaque ligne de la base de données
-    if($row = $result->fetch_assoc()) {
+    while($row = $result->fetch_assoc()) {
         echo '<tr class="text-center">
-                <td>' . $row['laharana'] . '</td>
-                <td>' . $row['anarana'] . '</td>
-                <td>' . $row['fanampiny_anarana'] . '</td>
-                <td>' . $row['faritra'] . '</td>
-                <td>' . $row['fikambanana'] . '</td>
-                <td>' . $row['vaomiera'] . '</td>
-                <td>' . $row['adidy'] . '</td>
-                <td>' . $row['daty_adidy'] . '</td>
+                <td>' . $row['numero'] . '</td>
+                <td>' . $row['nom'] . '</td>
+                <td>' . $row['prenom'] . '</td>
+                <td>' . $row['nom_faritra'] . '</td>
+                <td>' . $row['nom_fikambanana'] . '</td>
+                <td>' . $row['nom_vaomiera'] . '</td>
+                <td>' . $row['nom_adidy'] . '</td>
+                <td>' . $row['date_adidy'] . '</td>
             </tr>';
     }
 
@@ -229,8 +217,6 @@ if ($result->num_rows > 0) {
     echo "Aucune donnée trouvée";
 }
 
-// Fermeture de la connexion
-$conn->close();
 ?>
 
 

@@ -169,6 +169,7 @@ exit();
 
         <!-- JavaScript Libraries -->
         <script src="dist/js/jquery-3.7.1.min.js"></script>
+        <script src="dist/js/sweetalert.min.js"></script>
         <script src="dist/js/bootstrap.bundle.min.js"></script>
         <script src="dist/js/chart.min.js"></script>
         <script src="dist/js/easing.min.js"></script>
@@ -177,7 +178,25 @@ exit();
         <script src="dist/js/moment.min.js"></script>
         <script src="dist/js/moment-timezone.min.js"></script>
         <script src="dist/js/tempusdominus-bootstrap-4.min.js"></script>
+        <?php 
 
+if (isset($_SESSION['status']) && $_SESSION['status'] !='') {
+   ?>
+        <script>
+        swal({
+            title: '<?php echo $_SESSION['status'];?>',
+            text: '<?php echo $_SESSION['status_code'];?>',
+            icon: "error",
+            button: "Okay",
+        });
+        </script>
+
+        <?php
+unset($_SESSION['status']);
+
+}
+
+?>
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script>

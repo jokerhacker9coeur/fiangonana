@@ -38,6 +38,7 @@ if (isset($_POST['action'])) {
             vaomiera v ON k.id_kristianina = v.id_kristianina
         JOIN 
             faritra r ON k.id_kristianina = r.id_kristianina
+        ORDER BY k.nom
         ";
 
         getData($sql, $conn);
@@ -66,13 +67,13 @@ if (isset($_POST['action'])) {
         JOIN faritra r ON k.id_kristianina = r.id_kristianina
         JOIN fikambanana f ON k.id_kristianina = f.id_kristianina
         JOIN vaomiera v ON k.id_kristianina = v.id_kristianina
-        WHERE k.nom LIKE '$emp_name%'
+        WHERE k.nom LIKE '$emp_name%' OR k.prenom LIKE '$emp_name%'
+        ORDER BY k.nom
         ";
 
         getData($sql, $conn);
     }
 }
-
 // Fonction pour exécuter la requête et afficher les résultats
 function getData($sql, $conn) {
     $result = mysqli_query($conn, $sql);

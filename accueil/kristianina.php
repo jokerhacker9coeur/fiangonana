@@ -179,6 +179,7 @@ JOIN
     vaomiera ON kristianina.id_kristianina = vaomiera.id_kristianina
 JOIN 
     faritra ON kristianina.id_kristianina= faritra.id_kristianina
+    ORDER BY kristianina.nom
 ";
 
 // Exécution de la requête
